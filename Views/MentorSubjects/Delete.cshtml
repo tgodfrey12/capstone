@@ -1,0 +1,35 @@
+@model capstone.Models.MentorSubjects
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>MentorSubjects</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <input type="hidden" asp-for="ID" />
+        <dt>
+            @Html.DisplayNameFor(model => model.mentorID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.mentorID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.classID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.classID)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>
