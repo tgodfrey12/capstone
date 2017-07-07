@@ -199,54 +199,104 @@ namespace capstone.Models
 							name = "spanish",
 							category = "Languages"
 						},
-											new Subject
-											{
-												name = "french",
-												category = "Languages"
-											},
-											new Subject
-											{
-												name = "german",
-												category = "Languages"
-											},
-											new Subject
-											{
-												name = "japanese",
-												category = "Languages"
-											},
-											new Subject
-											{
-												name = "reading",
-												category = "Academics"
-											},
-											new Subject
-											{
-												name = "writing",
-												category = "Academics"
-											},
+						new Subject
+						{
+							name = "french",
+							category = "Languages"
+						},
+						new Subject
+						{
+							name = "german",
+							category = "Languages"
+						},
+						new Subject
+						{
+							name = "japanese",
+							category = "Languages"
+						},
+						new Subject
+						{
+							name = "reading",
+							category = "Academics"
+						},
+						new Subject
+						{
+							name = "writing",
+							category = "Academics"
+						},
+						new Subject
+						{
+							name = "history",
+							category = "Academics"
+						},
 
-																new Subject
-																{
-																	name = "history",
-																	category = "Academics"
-																}
+						new Subject
+						{
+							name = "chemistry",
+							category = "Academics"
+						},
+
+						new Subject
+						{
+							name = "middle grades science",
+							category = "Academics"
+						},
+
+						new Subject
+						{
+							name = "elementary science",
+							category = "Academics"
+						},
+
+						new Subject
+						{
+							name = "accounting",
+							category = "Business"
+						},
+
+						new Subject
+						{
+							name = "excel",
+							category = "Business"
+						},
+						new Subject
+						{
+							name = "personal finance",
+							category = "Business"
+						},
+
+						new Subject
+						{
+							name = "economics",
+							category = "Business"
+						},
+
+						new Subject
+						{
+							name = "mathematics level 1",
+							category = "SAT Test Prep"
+						},
 
 
-
+						new Subject
+						{
+							name = "mathematics level 2",
+							category = "SAT Test Prep"
+						}
 					);
 
-					try
-					{
-						context.SaveChanges();
-					}
-					catch (Exception e)
-					{
-						System.Diagnostics.Debug.WriteLine("Exception Thrown: ", e.Message);
-					}
+				try
+				{
+				    context.SaveChanges();
+				}
+				catch(Exception e)
+				{
+				    System.Diagnostics.Debug.WriteLine("Exception Thrown: ", e.Message);
+				}
 
 
 
-				}//End Initialize()
+			}//End Initialize()
         }
     }
 }
