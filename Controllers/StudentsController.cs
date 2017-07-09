@@ -57,6 +57,9 @@ namespace capstone.Controllers
 				{
 					//student = MapStudent(reader, student);
                     scvm.first_name = reader["first_name"].ToString();
+                    scvm.category = reader["category"].ToString();
+                    scvm.name = reader["name"].ToString();
+
                     modelList.Add(scvm);
 				}
 			}
@@ -105,6 +108,7 @@ namespace capstone.Controllers
             student.phone = reader["phone"].ToString();
             student.userID = reader["userID"].ToString();
             student.password = reader["password"].ToString();
+
 
             return student;
         }

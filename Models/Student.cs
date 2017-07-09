@@ -49,7 +49,7 @@ namespace capstone.Models
             set;
         }
 
-        public virtual IList StudentSubjects { get; set; }
+        //public virtual IList StudentSubjects { get; set; }
 
 
 
