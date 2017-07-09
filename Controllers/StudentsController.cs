@@ -35,6 +35,7 @@ namespace capstone.Controllers
             string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor.db;";
 
             StudentClassesViewModel scvm = new StudentClassesViewModel();
+            List<StudentClassesViewModel> modelList = new List<StudentClassesViewModel>();
 
 			string sql = "select sub.ID subjectID, sub.name, sub.category,  studSubs.studentID, " +
 							"stud.first_name, stud.last_name, stud.email, stud.phone " +
@@ -49,7 +50,6 @@ namespace capstone.Controllers
 			{
 				SqliteConnection conn = new SqliteConnection(connectionString);
 				conn.Open();
-				//string sql = "select * from Student where ID = " + id.ToString();
 				SqliteCommand command = new SqliteCommand(sql, conn);
 				SqliteDataReader reader = command.ExecuteReader();
 
@@ -57,6 +57,7 @@ namespace capstone.Controllers
 				{
 					//student = MapStudent(reader, student);
                     scvm.first_name = reader["first_name"].ToString();
+                    modelList.Add(scvm);
 				}
 			}
 			catch (Exception e)
@@ -64,7 +65,7 @@ namespace capstone.Controllers
 				Console.WriteLine("Exception = " + e.Message);
 			}
 
-            return View(scvm);
+            return View(modelList);
         }
 
  

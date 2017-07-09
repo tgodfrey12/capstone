@@ -43,6 +43,9 @@ namespace capstone
 				options.UseSqlite("Data Source=findAMentor.db"));
 			services.AddDbContext<StudentSubjectsContext>(options =>
 				options.UseSqlite("Data Source=findAMentor.db"));
+            services.AddDbContext<StudentClassesViewModelContext>(options =>
+	            options.UseSqlite("Data Source=findAMentor.db"));
+
 		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
