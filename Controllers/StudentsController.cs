@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using capstone.Models;
+using Microsoft.Data.Sqlite;
+
 
 namespace capstone.Controllers
 {
@@ -21,25 +23,89 @@ namespace capstone.Controllers
         // GET: Students
         public async Task<IActionResult> Index()
         {
+            var thing = await _context.Student.ToListAsync();
+
             return View(await _context.Student.ToListAsync());
         }
 
+        //GET: Students/StudentClasses/5
+        //Use the StudentClassesViewModel to create a view for the Student's classes
+        public async Task<IActionResult> StudentClasses(int id)
+        {
+            string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor.db;";
+
+            StudentClassesViewModel scvm = new StudentClassesViewModel();
+
+			string sql = "select sub.ID subjectID, sub.name, sub.category,  studSubs.studentID, " +
+							"stud.first_name, stud.last_name, stud.email, stud.phone " +
+							"from subject sub " +
+							"inner join studentSubjects studSubs " +
+							"on sub.ID = studSubs.subjectID " +
+							"inner join Student stud " +
+							"on stud.ID = studSubs.studentID " +
+							"where stud.ID = " + id;
+
+			try
+			{
+				SqliteConnection conn = new SqliteConnection(connectionString);
+				conn.Open();
+				//string sql = "select * from Student where ID = " + id.ToString();
+				SqliteCommand command = new SqliteCommand(sql, conn);
+				SqliteDataReader reader = command.ExecuteReader();
+
+				while (reader.Read())
+				{
+					//student = MapStudent(reader, student);
+                    scvm.first_name = reader["first_name"].ToString();
+				}
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine("Exception = " + e.Message);
+			}
+
+            return View(scvm);
+        }
+
+ 
         // GET: Students/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor.db;";
+            Student student = new Student();
 
-            var student = await _context.Student
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (student == null)
+            try
             {
-                return NotFound();
+                SqliteConnection conn = new SqliteConnection(connectionString);
+                conn.Open();
+                string sql = "select * from Student where ID = " + id.ToString();
+                SqliteCommand command = new SqliteCommand(sql, conn);
+                SqliteDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    student = MapStudent(reader, student);
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Exception = " + e.Message);
             }
 
             return View(student);
+        }
+
+        private Student MapStudent(SqliteDataReader reader, Student student)
+        {
+            //Student student = new Student();
+            student.first_name = reader["first_name"].ToString();
+            student.last_name = reader["last_name"].ToString();
+            student.email = reader["email"].ToString();
+            student.phone = reader["phone"].ToString();
+            student.userID = reader["userID"].ToString();
+            student.password = reader["password"].ToString();
+
+            return student;
         }
 
         // GET: Students/Create

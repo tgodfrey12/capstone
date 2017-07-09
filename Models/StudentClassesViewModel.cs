@@ -1,17 +1,29 @@
 ﻿using System;
-using System.Collections;
-
-
 namespace capstone.Models
 {
-    public class Student
+    public class StudentClassesViewModel
     {
-        public int ID
+        public int subjectID
         {
             get;
             set;
         }
 
+        public string name
+        {
+            get;
+            set;
+        }
+        public string category
+        {
+            get;
+            set;
+        }
+        public int studentID
+        {
+            get;
+            set;
+        }
         public string first_name
         {
             get;
@@ -32,28 +44,9 @@ namespace capstone.Models
             get;
             set;
         }
-        public string userID
-        {
-            get;
-            set;
-        }
-        public string password
-        {
-            get;
-            set;
-       
-        }
-        public int age
-        {
-            get;
-            set;
-        }
 
-        public virtual IList StudentSubjects { get; set; }
-
-
-
-		//public Student()
+    
+        //public StudentClassesViewModel()
         //{
         //}
     }

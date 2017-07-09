@@ -35,7 +35,6 @@ namespace capstone
 
 			services.AddDbContext<StudentContext>(options =>
 		        options.UseSqlite("Data Source=findAMentor.db"));
-            
 			services.AddDbContext<MentorContext>(options =>
 				options.UseSqlite("Data Source=findAMentor.db"));
 			services.AddDbContext<SubjectContext>(options =>
