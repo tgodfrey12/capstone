@@ -24,8 +24,9 @@ namespace capstone.Controllers
             return View(await _context.StudentSubjects.ToListAsync());
         }
 
-        // GET: StudentSubjects/Details/5
-        public async Task<IActionResult> Details(int? id)
+
+		// GET: StudentSubjects/Details/5
+		public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {

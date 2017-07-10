@@ -55,15 +55,6 @@ namespace capstone.Controllers
 			MentorClassesViewModel scvm = new MentorClassesViewModel();
 			List<MentorClassesViewModel> modelList = new List<MentorClassesViewModel>();
 
-			//string sql = "select sub.ID subjectID, sub.name, sub.category,  studSubs.studentID, " +
-							//"stud.first_name, stud.last_name, stud.email, stud.phone " +
-							//"from subject sub " +
-							//"inner join studentSubjects studSubs " +
-							//"on sub.ID = studSubs.subjectID " +
-							//"inner join Student stud " +
-							//"on stud.ID = studSubs.studentID " +
-							//"where stud.ID = " + id;
-
 			string sql = "select sub.ID subjectID, sub.name, sub.category,  mentSubs.mentorID, " +
 						"ment.first_name, ment.last_name, ment.email, ment.phone " +
 						"from subject sub " +
@@ -72,7 +63,6 @@ namespace capstone.Controllers
 						"inner join Mentor ment " +
 						"on ment.ID = mentSubs.mentorID " +
 						"where ment.ID = " + id;
-            
 
 			try
 			{

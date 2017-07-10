@@ -2,7 +2,43 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+<form asp-controller="Login" asp-action="login" method="post">
+    <table>
+        <tr>
+            <td>Email :</td>
+            <td><input name="email" type="text" /></td>
+        </tr>
+        <tr>
+            <td>Password :</td>
+            <td><input name="password" type="text" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input id="Submit1" type="submit" value="submit" /></td>
+        </tr>
+    </table>
+</form>
+
+
+<div class="studentOrMemberQuestion">
+	<p>
+		Not a student or a mentor?
+	</p>
+</div>
+
+
+
+<li>
+     <a href="@Url.Action("Create", "Students")" class="elements">
+          <span>Add Yourself as a Student</span>
+     </a>
+</li>
+<li>
+     <a href="@Url.Action("Create", "Mentors")" class="elements">
+          <span>Add Yourself as a Mentor    </span>
+     </a>
+</li>
+
+<!--<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -64,8 +100,8 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
-
-<div class="row">
+-->
+<!--<div class="row">
     <div class="col-md-3">
         <h2>Application uses</h2>
         <ul>
@@ -105,4 +141,4 @@
             <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
         </ul>
     </div>
-</div>
+</div>-->
