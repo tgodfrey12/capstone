@@ -26,5 +26,7 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="css\" />
+    <Folder Include="Scripts\" />
+    <Folder Include="js\" />
   </ItemGroup>
 </Project>

@@ -4,6 +4,8 @@
     ViewData["Title"] = "Student Classes";
 }
 
+
+
 <!--Populated in the StudentClasses method in the Students Controller-->
 <table class="table">
     <thead>
@@ -81,75 +83,25 @@
 <p>----------------------------Request A Class----------------------------</p>
 <p></p>
 <form asp-controller="Login" asp-action="login" method="post">
+
+	<label class="categoryLbl">Category</label>
 	<div>
-      <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Musical Instruments
-          <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">guitar</a></li>
-            <li><a href="#">double bass</a></li>
-            <li><a href="#">violin</a></li> 
-			<li><a href="#">bass guitar</a></li> 
-			<li><a href="#">trombone</a></li>
-			<li><a href="#">trumpet</a></li>
-            <li><a href="#">piano</a></li>
-          </ul>
-      </ul>
-
-      <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Academics
-          <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">elementary science</a></li>
-            <li><a href="#">middle grades science</a></li>
-            <li><a href="#">chemistry</a></li> 
-            <li><a href="#">history</a></li> 
-            <li><a href="#">writing</a></li>
-            <li><a href="#">reading</a></li>
-          </ul>
-      </ul>
-
-      <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Languages
-          <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">japanese</a></li>
-            <li><a href="#">german</a></li>
-            <li><a href="#">french</a></li> 
-            <li><a href="#">spanish</a></li> 
-            <li><a href="#">english</a></li>
-          </ul>
-      </ul>
-
-		
-      <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Mathematics
-          <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">precalculus</a></li>
-            <li><a href="#">algebra 2</a></li>
-            <li><a href="#">geometry</a></li> 
-            <li><a href="#">algebra 1</a></li> 
-            <li><a href="#">middle school math</a></li>
-          </ul>
-      </ul>
-
-		      <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">SAT Test Prep
-          <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">mathematics level 1</a></li>
-            <li><a href="#">mathematics level 2</a></li>
-          </ul>
-      </ul>
-
-    </div>
-
+	    <select id="category" name="category">
+	        <option></option>
+	        <option>Academics</option>
+	        <option>Languages</option>
+	        <option>Mathematics</option>
+	        <option>SAT Test Prep</option>
+	    </select>
+	</div>
+	<br />
+	<br />
+	<label class="classLbl">Class</label>
+	<div>
+	    <select id="classNames" name="classNames"></select>
+	</div>  
+	<br/>
+	<br/>
 	<div>
 		<p>
 	        <td colspan="2"><input id="Submit1" type="submit" value="Request a Class" /></td>
