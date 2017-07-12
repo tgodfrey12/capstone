@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace capstone.Models
 {
-    public class MentorClassesViewModel
+    public class StudentClassesViewModel
     {
         public int subjectID
         {
@@ -64,9 +66,6 @@ namespace capstone.Models
             get;
             set;
         }
-    
-        //public StudentClassesViewModel()
-        //{
-        //}
-    }
+	}
+
 }

@@ -14,8 +14,9 @@ namespace capstone.Controllers
     public class StudentsController : Controller
     {
         private readonly StudentContext _context;
+        List<string> categoryList;
 
-        public StudentsController(StudentContext context)
+		public StudentsController(StudentContext context)
         {
             _context = context;    
         }
@@ -33,8 +34,8 @@ namespace capstone.Controllers
         public async Task<IActionResult> StudentClasses(int id)
         {
             string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor.db;";
+            SqliteConnection conn;
 
-            StudentClassesViewModel scvm = new StudentClassesViewModel();
             List<StudentClassesViewModel> modelList = new List<StudentClassesViewModel>();
 
 			string sql = "select sub.ID subjectID, sub.name, sub.category,  studSubs.studentID, " +
@@ -48,31 +49,58 @@ namespace capstone.Controllers
 
 			try
 			{
-				SqliteConnection conn = new SqliteConnection(connectionString);
+				conn = new SqliteConnection(connectionString);
 				conn.Open();
 				SqliteCommand command = new SqliteCommand(sql, conn);
 				SqliteDataReader reader = command.ExecuteReader();
 
 				while (reader.Read())
 				{
+                    StudentClassesViewModel scvm = new StudentClassesViewModel();
 					//student = MapStudent(reader, student);
                     scvm.first_name = reader["first_name"].ToString();
+                    scvm.last_name = reader["last_name"].ToString();
                     scvm.category = reader["category"].ToString();
                     scvm.name = reader["name"].ToString();
 
                     modelList.Add(scvm);
 				}
 
+                ViewBag.Categories = new SelectList(GetCategories(conn));
 
 			}
 			catch (Exception e)
 			{
 				Console.WriteLine("Exception = " + e.Message);
 			}
-
             return View(modelList);
         }
 
+        public List<string> GetCategories(SqliteConnection conn)
+        {
+            categoryList = new List<string>();
+
+            string sql = "select distinct(category) from Subject;";
+
+			try
+			{
+				//SqliteConnection conn = new SqliteConnection(connectionString);
+				conn.Open();
+				SqliteCommand command = new SqliteCommand(sql, conn);
+				SqliteDataReader reader = command.ExecuteReader();
+
+				while (reader.Read())
+				{
+                    categoryList.Add(reader["category"].ToString());
+				}
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine("Exception = " + e.Message);
+			}
+
+            return categoryList;
+		}
  
         // GET: Students/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -221,5 +249,11 @@ namespace capstone.Controllers
         {
             return _context.Student.Any(e => e.ID == id);
         }
+
+
+
+
+
+
     }
 }

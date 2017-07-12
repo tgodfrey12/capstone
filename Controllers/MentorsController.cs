@@ -47,7 +47,7 @@ namespace capstone.Controllers
 
 
 		//GET: Students/StudentClasses/5
-		//Use the StudentClassesViewModel to create a view for the Student's classes
+		//Use the MentorClassesViewModel to create a view for the Student's classes
 		public async Task<IActionResult> MentorClasses(int id)
 		{
 			string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor.db;";
@@ -73,10 +73,10 @@ namespace capstone.Controllers
 
 				while (reader.Read())
 				{
-					//student = MapStudent(reader, student);
 					scvm.first_name = reader["first_name"].ToString();
 					scvm.category = reader["category"].ToString();
 					scvm.name = reader["name"].ToString();
+
 					modelList.Add(scvm);
 				}
 			}

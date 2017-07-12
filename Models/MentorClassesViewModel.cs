@@ -1,7 +1,7 @@
 ﻿using System;
 namespace capstone.Models
 {
-	public class StudentClassesViewModel
+	public class MentorClassesViewModel
 	{
 		public int subjectID
 		{
@@ -55,6 +55,11 @@ namespace capstone.Models
 			set;
 		}
 		public int ID
+		{
+			get;
+			set;
+		}
+		public string age
 		{
 			get;
 			set;

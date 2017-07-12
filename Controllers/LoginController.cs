@@ -57,7 +57,10 @@ namespace capstone.Controllers
 				Console.WriteLine("Exception = " + e.Message);
 			}
 
-            //return (Microsoft.AspNetCore.Mvc.IActionResult)sc.StudentClasses(4);
+
+            //TODO: If not a student or a mentor, redirect to a signup page and 
+            //add a link to the signup page on index
+
             return null;
         }
 
