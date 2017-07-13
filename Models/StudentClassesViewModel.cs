@@ -66,6 +66,12 @@ namespace capstone.Models
             get;
             set;
         }
+        public string status
+		{
+			get;
+			set;
+		}
+
 	}
 
 }

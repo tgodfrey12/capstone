@@ -72,7 +72,7 @@ namespace capstone.Controllers
 
             List<StudentClassesViewModel> modelList = new List<StudentClassesViewModel>();
 
-            string sql = "select sub.ID subjectID, sub.name, sub.category,  studSubs.studentID, " +
+            string sql = "select sub.ID subjectID, sub.name, sub.category,  studSubs.studentID, studSubs.status, " +
                             "stud.first_name, stud.last_name, stud.email, stud.phone " +
                             "from subject sub " +
                             "inner join studentSubjects studSubs " +
@@ -96,6 +96,7 @@ namespace capstone.Controllers
                     scvm.last_name = reader["last_name"].ToString();
                     scvm.category = reader["category"].ToString();
                     scvm.name = reader["name"].ToString();
+                    scvm.status = reader["status"].ToString();
 
                     modelList.Add(scvm);
                 }
