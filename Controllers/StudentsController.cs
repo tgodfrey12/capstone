@@ -16,7 +16,7 @@ namespace capstone.Controllers
         private readonly StudentContext _context;
         List<string> categoryList;
 
-		public StudentsController(StudentContext context)
+        public StudentsController(StudentContext context)
         {
             _context = context;    
         }
@@ -29,6 +29,40 @@ namespace capstone.Controllers
             return View(await _context.Student.ToListAsync());
         }
 
+
+        //[HttpPost]
+        //Works when called with http://localhost:52461/Students/insertStudentClass
+        ////POST: Students/insertStudentClass
+        //public string insertStudentClass()
+        //{
+        //          return "booyah";
+        //    //Console.WriteLine("In the insertStudentClass route");
+        //}
+
+
+
+        [HttpPost]
+        public string insertStudentClass(int studentID, int classID)
+        {
+            //Insert record into database table
+            try
+            {
+                string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor.db;";
+                SqliteConnection conn = new SqliteConnection(connectionString);
+                conn.Open();
+
+                string sql = "INSERT INTO studentSubjects (studentID, subjectID) " +
+                    "VALUES (" + studentID + ", " + classID + ");";
+                SqliteCommand command = new SqliteCommand(sql, conn);
+                command.ExecuteNonQuery();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Exception = " + e.Message);
+            }
+            return "booyah";
+        }
+
         //GET: Students/StudentClasses/5
         //Use the StudentClassesViewModel to create a view for the Student's classes
         public async Task<IActionResult> StudentClasses(int id)
@@ -38,41 +72,41 @@ namespace capstone.Controllers
 
             List<StudentClassesViewModel> modelList = new List<StudentClassesViewModel>();
 
-			string sql = "select sub.ID subjectID, sub.name, sub.category,  studSubs.studentID, " +
-							"stud.first_name, stud.last_name, stud.email, stud.phone " +
-							"from subject sub " +
-							"inner join studentSubjects studSubs " +
-							"on sub.ID = studSubs.subjectID " +
-							"inner join Student stud " +
-							"on stud.ID = studSubs.studentID " +
-							"where stud.ID = " + id;
+            string sql = "select sub.ID subjectID, sub.name, sub.category,  studSubs.studentID, " +
+                            "stud.first_name, stud.last_name, stud.email, stud.phone " +
+                            "from subject sub " +
+                            "inner join studentSubjects studSubs " +
+                            "on sub.ID = studSubs.subjectID " +
+                            "inner join Student stud " +
+                            "on stud.ID = studSubs.studentID " +
+                            "where stud.ID = " + id;
 
-			try
-			{
-				conn = new SqliteConnection(connectionString);
-				conn.Open();
-				SqliteCommand command = new SqliteCommand(sql, conn);
-				SqliteDataReader reader = command.ExecuteReader();
+            try
+            {
+                conn = new SqliteConnection(connectionString);
+                conn.Open();
+                SqliteCommand command = new SqliteCommand(sql, conn);
+                SqliteDataReader reader = command.ExecuteReader();
 
-				while (reader.Read())
-				{
+                while (reader.Read())
+                {
                     StudentClassesViewModel scvm = new StudentClassesViewModel();
-					//student = MapStudent(reader, student);
+                    //student = MapStudent(reader, student);
                     scvm.first_name = reader["first_name"].ToString();
                     scvm.last_name = reader["last_name"].ToString();
                     scvm.category = reader["category"].ToString();
                     scvm.name = reader["name"].ToString();
 
                     modelList.Add(scvm);
-				}
+                }
 
                 ViewBag.Categories = new SelectList(GetCategories(conn));
 
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine("Exception = " + e.Message);
-			}
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception = " + e.Message);
+            }
             return View(modelList);
         }
 
@@ -82,25 +116,25 @@ namespace capstone.Controllers
 
             string sql = "select distinct(category) from Subject;";
 
-			try
-			{
-				//SqliteConnection conn = new SqliteConnection(connectionString);
-				conn.Open();
-				SqliteCommand command = new SqliteCommand(sql, conn);
-				SqliteDataReader reader = command.ExecuteReader();
+            try
+            {
+                //SqliteConnection conn = new SqliteConnection(connectionString);
+                conn.Open();
+                SqliteCommand command = new SqliteCommand(sql, conn);
+                SqliteDataReader reader = command.ExecuteReader();
 
-				while (reader.Read())
-				{
+                while (reader.Read())
+                {
                     categoryList.Add(reader["category"].ToString());
-				}
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine("Exception = " + e.Message);
-			}
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception = " + e.Message);
+            }
 
             return categoryList;
-		}
+        }
  
         // GET: Students/Details/5
         public async Task<IActionResult> Details(int? id)
