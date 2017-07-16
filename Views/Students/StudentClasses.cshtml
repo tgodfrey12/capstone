@@ -4,8 +4,6 @@
     ViewData["Title"] = "Student Classes";
 }
 
-
-
 <!--Populated in the StudentClasses method in the Students Controller-->
 <table class="table">
     <thead>
@@ -58,7 +56,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.name)
             </td>
-            <td>
+            <td id="classStatus">
                 @Html.DisplayFor(modelItem => item.status)
             </td>
 
@@ -88,13 +86,14 @@
 </table>
 
 <p>----------------------------Request A Class----------------------------</p>
+<li class="divider">Request A Class</li>
 <p></p>
 <!--Worst Case, Use this form to send a hard-coded value for the demo-->
 <!--<form asp-controller="StudentSubjects" asp-action="insertStudentClass" method="post">-->
 
 	<label class="categoryLbl">Category</label>
 	<div>
-	    <select id="category" name="category">
+	    <select id="category" name="category"  class="form-control">
 	        <option></option>
 	        <option>Academics</option>
 	        <option>Languages</option>
@@ -106,13 +105,14 @@
 	<br />
 	<label class="classLbl">Class</label>
 	<div>
-	    <select id="classNames" name="classNames"></select>
+	    <select id="classNames" name="classNames"  class="form-control"></select>
 	</div>  
 	<br/>
 	<br/>
 	<div>
 		<p>
-	        <td colspan="2"><input id="submitNewClassBtn" type="submit" value="Request a Class" /></td>
+	        <!--<td colspan="2"><input id="submitNewClassBtn" type="submit" value="Request a Class"  class="form-control"/></td>-->
+		<td colspan="2"><input id="submitNewClassBtn" type="submit" value="Request a Class"  class="btn btn-primary"/></td>
 		</p>
 	</div>
 <!--</form>-->

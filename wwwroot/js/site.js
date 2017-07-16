@@ -148,50 +148,17 @@ function sendClassRequest(classID){
 }
 
 function insertStudentClass(studentID, classID){
-    //Try to call http://localhost:52461/Students/StudentClasses/4
+    $.post('http://localhost:52461/Students/insertStudentClass', { studentID: studentID, classID : classID}, 
+        function(returnedData){
+            console.log(returnedData);
+        });
 
-
-//    $.post( "http://localhost:52461/Students/insertStudentClass", function( data ) {
-//  $( ".result" ).html( data );
-//});
-
-$.post('http://localhost:52461/Students/insertStudentClass', { studentID: studentID, classID : classID}, 
-    function(returnedData){
-         console.log(returnedData);
-});
-
+    //Save this for later.  Getting a 404 not found.  Redirect to a different route 
+    //that only shows the classes list for the student?
+    //$.get('http://localhost:52461/Students/StudentClasses', { studentID: studentID }, 
+    //    function(returnedData){
+    //        console.log(returnedData);
+    //    });
 
 };
 
-//An example Ajax call
-//  function getResults(searchTerm) {
-//      var request = $.ajax({
-//          url: "https://api.spotify.com/v1/search",
-//          method: "GET",
-//          data: {
-//              q: "artist:" + searchTerm,
-//              type: "album",
-//              limit: 5
-//          },
-//          dataType: "json",
-//      });
-
-//    results.done(function(response) {
-
-
-
-//        var albums = response.albums.items;
-//        var display = ""
-//        $.each(albums, function(i, album) {
-//            var albumName = album.name;
-//            var albumImage = album.images[0].url;
-//            var spotifyLink = album.external_urls.spotify;
-//            display += "<li><img src=" + albumImage + "></li>";
-//        });
-//        $('.results').html(display);
-//    });
-
-//    results.fail(function(error) {
-//        alert("Something went wrong!");
-//    })
-//};

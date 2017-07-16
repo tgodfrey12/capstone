@@ -35,3 +35,9 @@ textarea {
         display: none;
     }
 }
+
+
+#emailTB {
+    padding-bottom: 20px;
+    padding-top: 20px;
+}

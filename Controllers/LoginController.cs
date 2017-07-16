@@ -11,7 +11,7 @@ namespace capstone.Controllers
 
         public ActionResult Login(string email, string password)
         {
-            string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor.db;";
+            string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor_Saved.db;";
 
             string studentSQL = "SELECT * FROM Student where email = " + "'" + email + "'" +
                 " AND password = " + "'" + password + "'";

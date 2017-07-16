@@ -29,45 +29,39 @@ namespace capstone.Controllers
             return View(await _context.Student.ToListAsync());
         }
 
-
-        //[HttpPost]
-        //Works when called with http://localhost:52461/Students/insertStudentClass
-        ////POST: Students/insertStudentClass
-        //public string insertStudentClass()
-        //{
-        //          return "booyah";
-        //    //Console.WriteLine("In the insertStudentClass route");
-        //}
-
-
-
+        //Insert a record into the studentSubjects table
+        //called as a post to http://localhost:52461/Students/insertStudentClass
+        //see site.js for the specific call.
         [HttpPost]
-        public string insertStudentClass(int studentID, int classID)
+        public IActionResult insertStudentClass(int studentID, int classID)
         {
             //Insert record into database table
             try
             {
-                string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor.db;";
+                string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor_Saved.db;";
                 SqliteConnection conn = new SqliteConnection(connectionString);
                 conn.Open();
 
-                string sql = "INSERT INTO studentSubjects (studentID, subjectID) " +
-                    "VALUES (" + studentID + ", " + classID + ");";
+                string sql = "INSERT INTO studentSubjects (studentID, subjectID, status) " +
+                    "VALUES (" + studentID + ", " + classID + ", 'pending');";
                 SqliteCommand command = new SqliteCommand(sql, conn);
                 command.ExecuteNonQuery();
+
+                    conn.Close();
             }
             catch(Exception e)
             {
                 Console.WriteLine("Exception = " + e.Message);
             }
-            return "booyah";
-        }
+			//return "booyah";
+            return RedirectToAction("StudentClasses/", new { id = studentID });
+        }   
 
         //GET: Students/StudentClasses/5
         //Use the StudentClassesViewModel to create a view for the Student's classes
         public async Task<IActionResult> StudentClasses(int id)
         {
-            string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor.db;";
+            string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor_Saved.db;";
             SqliteConnection conn;
 
             List<StudentClassesViewModel> modelList = new List<StudentClassesViewModel>();
@@ -102,6 +96,7 @@ namespace capstone.Controllers
                 }
 
                 ViewBag.Categories = new SelectList(GetCategories(conn));
+                conn.Close();
 
             }
             catch (Exception e)
@@ -128,6 +123,8 @@ namespace capstone.Controllers
                 {
                     categoryList.Add(reader["category"].ToString());
                 }
+
+                conn.Close();
             }
             catch (Exception e)
             {
@@ -140,7 +137,7 @@ namespace capstone.Controllers
         // GET: Students/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor.db;";
+            string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor_Saved.db;";
             Student student = new Student();
 
             try
@@ -155,11 +152,14 @@ namespace capstone.Controllers
                 {
                     student = MapStudent(reader, student);
                 }
+
+                conn.Close();
             }
             catch(Exception e)
             {
                 Console.WriteLine("Exception = " + e.Message);
             }
+
 
             return View(student);
         }
@@ -284,11 +284,6 @@ namespace capstone.Controllers
         {
             return _context.Student.Any(e => e.ID == id);
         }
-
-
-
-
-
 
     }
 }

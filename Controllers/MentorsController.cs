@@ -50,7 +50,7 @@ namespace capstone.Controllers
 		//Use the MentorClassesViewModel to create a view for the Student's classes
 		public async Task<IActionResult> MentorClasses(int id)
 		{
-			string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor.db;";
+			string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor_Saved.db;";
 
 			MentorClassesViewModel scvm = new MentorClassesViewModel();
 			List<MentorClassesViewModel> modelList = new List<MentorClassesViewModel>();
@@ -74,23 +74,57 @@ namespace capstone.Controllers
 				while (reader.Read())
 				{
 					scvm.first_name = reader["first_name"].ToString();
+                    scvm.last_name = reader["last_name"].ToString();
 					scvm.category = reader["category"].ToString();
 					scvm.name = reader["name"].ToString();
 
 					modelList.Add(scvm);
 				}
+
+                conn.Close();
 			}
 			catch (Exception e)
 			{
 				Console.WriteLine("Exception = " + e.Message);
 			}
 
+            ViewBag.Notifications = getMentorNotifications(id);
+                
     			return View(modelList);
 		}
 
 
 
+        public string[] getMentorNotifications(int id)
+        {
+			string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor_Saved.db;";
 
+            string sql = "select notification from mentorNotifications where mentorID = " + id;
+            string[] notificationsAra = new string[3];
+            List<string> notificationsList = new List<string>();
+
+			try
+			{
+				SqliteConnection conn = new SqliteConnection(connectionString);
+				conn.Open();
+				SqliteCommand command = new SqliteCommand(sql, conn);
+				SqliteDataReader reader = command.ExecuteReader();
+
+				while (reader.Read())
+				{
+                    //notificationsAra[arrayCounter] = reader["notification"].ToString();
+                    notificationsList.Add(reader["notification"].ToString());
+				}
+
+				conn.Close();
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine("Exception = " + e.Message);
+			}
+
+            return notificationsList.ToArray();
+        }
 
 
 

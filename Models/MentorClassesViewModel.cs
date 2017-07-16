@@ -65,6 +65,8 @@ namespace capstone.Models
 			set;
 		}
 
+
+
 		//public StudentClassesViewModel()
 		//{
 		//}
