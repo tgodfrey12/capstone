@@ -4,97 +4,65 @@
     ViewData["Title"] = "Student Classes";
 }
 
+
+
 <!--Populated in the StudentClasses method in the Students Controller-->
+<div class="studentHeader">
+	<p>
+		</br>
+        <font color="blue" size="3"><b>Welcome @ViewBag.studentName!  Here is your current list of enrollments:</b></font>
+	</p>	
+</div>
+
+
 <table class="table">
     <thead>
         <tr>
                 <th>
-                    <!--@Html.DisplayNameFor(model => model.first_name)-->
-				    First Name
-                </th>
-                <th>
-                    <!--@Html.DisplayNameFor(model => model.first_name)-->
-                    Last Name
-                </th>			
-                <th>
-                    <!--@Html.DisplayNameFor(model => model.last_name)-->
 				    Category
                 </th>
                 <th>
-                    <!--@Html.DisplayNameFor(model => model.email)-->
 				    Class Name
                 </th>
                 <th>
-                    <!--@Html.DisplayNameFor(model => model.email)-->
                     Status
                 </th>			
-<!--                <th>
-                    @Html.DisplayNameFor(model => model.phone)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.userID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.password)
-                </th>
---><!--            <th></th>
--->        </tr>
+        </tr>
     </thead>
 
 	<tbody>
 @foreach (var item in Model) {
+		
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.first_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.last_name)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.category)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.name)
             </td>
-            <td id="classStatus">
-                @Html.DisplayFor(modelItem => item.status)
-            </td>
 
 
-
-			<!--            <td>
-                @Html.DisplayFor(modelItem => item.email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.userID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.password)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
--->        
+			@if(item.status == "pending")
+			{
+	            <td id="classStatus"><font color="red">@Html.DisplayFor(modelItem => item.status)</font></td>
+			}
+			else
+			{
+			    <td id="classStatus">@Html.DisplayFor(modelItem => item.status)</td>
+			}
 		</tr>
 }
     </tbody>
 </table>
 
 <p>----------------------------Request A Class----------------------------</p>
-<li class="divider">Request A Class</li>
 <p></p>
 <!--Worst Case, Use this form to send a hard-coded value for the demo-->
-<!--<form asp-controller="StudentSubjects" asp-action="insertStudentClass" method="post">-->
+<form asp-controller="Students" asp-action="insertStudentClass" method="post">
 
 	<label class="categoryLbl">Category</label>
 	<div>
 	    <select id="category" name="category"  class="form-control">
-	        <option></option>
 	        <option>Academics</option>
 	        <option>Languages</option>
 	        <option>Mathematics</option>
@@ -111,10 +79,34 @@
 	<br/>
 	<div>
 		<p>
-	        <!--<td colspan="2"><input id="submitNewClassBtn" type="submit" value="Request a Class"  class="form-control"/></td>-->
-		<td colspan="2"><input id="submitNewClassBtn" type="submit" value="Request a Class"  class="btn btn-primary"/></td>
+	        <!--<td colspan="2"><input id="submitNewClassBtn" type="submit" value="Request a Class"  class="btn btn-primary"/></td>-->
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Request a Class</button>
+			
 		</p>
 	</div>
-<!--</form>-->
+</form>
 
-    
+
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Thank You!</h4>
+      </div>
+      <div class="modal-body">
+        <p>Thanks for requesting a tutor for precalculus.  We will let you know when a tutor is available</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

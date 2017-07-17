@@ -5,6 +5,8 @@
     $(document).ready(function() {
         
         setupListeners();
+
+
     });
 })();   
 
@@ -161,4 +163,5 @@ function insertStudentClass(studentID, classID){
     //    });
 
 };
+
 

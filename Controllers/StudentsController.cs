@@ -38,16 +38,18 @@ namespace capstone.Controllers
             //Insert record into database table
             try
             {
-                string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor_Saved.db;";
+                string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor.db;";
                 SqliteConnection conn = new SqliteConnection(connectionString);
-                conn.Open();
+
+				conn.Open();
 
                 string sql = "INSERT INTO studentSubjects (studentID, subjectID, status) " +
-                    "VALUES (" + studentID + ", " + classID + ", 'pending');";
+                    //"VALUES (" + studentID + ", " + classID + ", 'pending');";
+                    "VALUES (" + 4 + ", " + 19 + ", 'pending');";
                 SqliteCommand command = new SqliteCommand(sql, conn);
                 command.ExecuteNonQuery();
 
-                    conn.Close();
+                command.Dispose();
             }
             catch(Exception e)
             {
@@ -61,8 +63,10 @@ namespace capstone.Controllers
         //Use the StudentClassesViewModel to create a view for the Student's classes
         public async Task<IActionResult> StudentClasses(int id)
         {
-            string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor_Saved.db;";
+            string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor.db;";
             SqliteConnection conn;
+
+
 
             List<StudentClassesViewModel> modelList = new List<StudentClassesViewModel>();
 
@@ -82,22 +86,23 @@ namespace capstone.Controllers
                 SqliteCommand command = new SqliteCommand(sql, conn);
                 SqliteDataReader reader = command.ExecuteReader();
 
-                while (reader.Read())
-                {
-                    StudentClassesViewModel scvm = new StudentClassesViewModel();
-                    //student = MapStudent(reader, student);
-                    scvm.first_name = reader["first_name"].ToString();
-                    scvm.last_name = reader["last_name"].ToString();
-                    scvm.category = reader["category"].ToString();
-                    scvm.name = reader["name"].ToString();
-                    scvm.status = reader["status"].ToString();
 
-                    modelList.Add(scvm);
-                }
+                    while (reader.Read())
+                    {
+                        StudentClassesViewModel scvm = new StudentClassesViewModel();
+                        //student = MapStudent(reader, student);
+                        scvm.first_name = reader["first_name"].ToString();
+                        scvm.last_name = reader["last_name"].ToString();
+                        scvm.category = reader["category"].ToString();
+                        scvm.name = reader["name"].ToString();
+                        scvm.status = reader["status"].ToString();
 
-                ViewBag.Categories = new SelectList(GetCategories(conn));
-                conn.Close();
+                        ViewBag.studentName = scvm.first_name;
 
+                        modelList.Add(scvm);
+                    }
+                    ViewBag.Categories = new SelectList(GetCategories(conn));
+                command.Dispose();
             }
             catch (Exception e)
             {
@@ -125,6 +130,7 @@ namespace capstone.Controllers
                 }
 
                 conn.Close();
+                command.Dispose();
             }
             catch (Exception e)
             {
@@ -137,23 +143,23 @@ namespace capstone.Controllers
         // GET: Students/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor_Saved.db;";
+            string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor.db;";
             Student student = new Student();
 
             try
             {
                 SqliteConnection conn = new SqliteConnection(connectionString);
-                conn.Open();
-                string sql = "select * from Student where ID = " + id.ToString();
-                SqliteCommand command = new SqliteCommand(sql, conn);
-                SqliteDataReader reader = command.ExecuteReader();
+                    conn.Open();
+                    string sql = "select * from Student where ID = " + id.ToString();
+                    SqliteCommand command = new SqliteCommand(sql, conn);
+                    SqliteDataReader reader = command.ExecuteReader();
 
-                while (reader.Read())
-                {
-                    student = MapStudent(reader, student);
-                }
+                    while (reader.Read())
+                    {
+                        student = MapStudent(reader, student);
+                    }
 
-                conn.Close();
+                command.Dispose();
             }
             catch(Exception e)
             {

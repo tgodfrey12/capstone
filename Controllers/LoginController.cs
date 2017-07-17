@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using capstone.Models;
 
 
+
 namespace capstone.Controllers
 {
     public class LoginController : Controller
@@ -11,9 +12,10 @@ namespace capstone.Controllers
 
         public ActionResult Login(string email, string password)
         {
-            string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor_Saved.db;";
+            string connectionString = @"Data Source=/Users/toby/g45/capstone/bin/Debug/netcoreapp1.1/findAMentor.db;";
 
-            string studentSQL = "SELECT * FROM Student where email = " + "'" + email + "'" +
+
+			string studentSQL = "SELECT * FROM Student where email = " + "'" + email + "'" +
                 " AND password = " + "'" + password + "'";
 
 			string mentorSQL = "SELECT * FROM Mentor where email = " + "'" + email + "'" +
@@ -41,15 +43,18 @@ namespace capstone.Controllers
 				SqliteCommand mentorCommand = new SqliteCommand(mentorSQL, conn);
 				reader = mentorCommand.ExecuteReader();
 
-                while(reader.Read())
+                using (conn)
                 {
-					if (reader.HasRows)
-					{
-                        int mentorID = Int32.Parse(reader["ID"].ToString());
-						return RedirectToAction("MentorClasses", "Mentors", new { id = mentorID });
-					}
-					else
-						break;
+                    while (reader.Read())
+                    {
+                        if (reader.HasRows)
+                        {
+                            int mentorID = Int32.Parse(reader["ID"].ToString());
+                            return RedirectToAction("MentorClasses", "Mentors", new { id = mentorID });
+                        }
+                        else
+                            break;
+                    }
                 }
 			}
 			catch (Exception e)
